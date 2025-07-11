@@ -94,7 +94,6 @@ class AgentConfig:
         config.translate = not args.no_translate
 
         config.validate()
-        print(vars(config))
         return config
 
     def validate(self) -> bool:
