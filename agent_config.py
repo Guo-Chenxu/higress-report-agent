@@ -1,6 +1,4 @@
 import argparse
-import os
-from typing import List, Optional, Dict, Any
 
 
 class AgentConfig:
@@ -108,24 +106,3 @@ class AgentConfig:
                     raise ValueError("生成Changelog时必须提供PR编号列表 (--pr_nums)")
 
         return True
-
-    # def get_report_params(self) -> Dict[str, Any]:
-    #     """根据报告类型获取对应的参数字典"""
-    #     params = {
-    #         'translate': self.translate
-    #     }
-
-    #     # 添加重要PR
-    #     if self.important_pr_list:
-    #         params['important_pr_list'] = self.important_pr_list
-
-    #     # 根据报告类型添加特定参数
-    #     if self.choice == self.REPORT_MONTHLY:
-    #         if self.month:
-    #             params['month'] = self.month
-    #         if self.year:
-    #             params['year'] = self.year
-    #     elif self.choice == self.REPORT_CHANGELOG:
-    #         params['pr_num_list'] = self.pr_num_list
-
-    #     return params
