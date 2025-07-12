@@ -1,4 +1,5 @@
 import argparse
+from datetime import datetime, timezone
 
 
 class AgentConfig:
@@ -18,11 +19,11 @@ class AgentConfig:
         self.mode = self.MODE_INTERACTIVE
 
         # 报告类型选择
-        self.choice = None
+        self.choice = AgentConfig.REPORT_MONTHLY
 
         # 月报参数
-        self.month = None
-        self.year = None
+        self.month = datetime.now(timezone.utc).month
+        self.year = datetime.now(timezone.utc).year
 
         # Changelog参数
         self.pr_num_list = []
@@ -39,15 +40,15 @@ class AgentConfig:
         # 基本参数
         parser.add_argument('--mode', type=int, choices=[cls.MODE_INTERACTIVE, cls.MODE_ARGS],
                             default=cls.MODE_INTERACTIVE,
-                            help='运行模式: 1=交互模式, 2=命令行参数模式')
+                            help='运行模式: 1=交互模式, 2=命令行参数模式，默认1')
 
         # 报告类型
         parser.add_argument('--choice', type=int, choices=[cls.REPORT_MONTHLY, cls.REPORT_CHANGELOG],
-                            help='报告类型: 1=月报, 2=Changelog')
+                            help='报告类型: 1=月报, 2=Changelog，默认1')
 
         # 月报相关参数
-        parser.add_argument('--month', type=int, help='月份 (仅月报有效)')
-        parser.add_argument('--year', type=int, help='年份 (仅月报有效)')
+        parser.add_argument('--month', type=int, help='月份 (仅月报有效，默认当前月份)')
+        parser.add_argument('--year', type=int, help='年份 (仅月报有效，默认当前年份)')
 
         # Changelog相关参数
         parser.add_argument('--pr_nums', type=str,
@@ -64,7 +65,8 @@ class AgentConfig:
 
         if args.mode:
             config.mode = args.mode
-        config.choice = args.choice
+        if args.choice:
+            config.choice = args.choice
 
         # 设置月报参数
         if args.month:
@@ -96,13 +98,12 @@ class AgentConfig:
 
     def validate(self) -> bool:
         """验证配置是否合法"""
-        # 如果是命令行参数模式，需要检查必要的参数
-        if self.mode == self.MODE_ARGS:
-            if not self.choice:
-                raise ValueError("必须指定报告类型 (--choice)")
+        if self.mode != self.MODE_ARGS:
+            return True
 
-            if self.choice == self.REPORT_CHANGELOG:
-                if not self.pr_num_list:
-                    raise ValueError("生成Changelog时必须提供PR编号列表 (--pr_nums)")
+        # 如果是命令行参数模式，需要检查必要的参数
+        if self.choice == self.REPORT_CHANGELOG:
+            if not self.pr_num_list:
+                raise ValueError("生成Changelog时必须提供PR编号列表 (--pr_nums)")
 
         return True
