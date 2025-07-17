@@ -1,10 +1,10 @@
-# 🤖 Higress报告生成代理：让开源项目月报和Changelog自动化的智能助手
+# 🤖 github报告生成代理：让开源项目月报和Changelog自动化的智能助手
 
 ## 📖 项目背景
 
 在开源项目的日常维护中，定期生成月报和Changelog是必不可少的工作。传统的方式需要开发者手动筛选PR、分析代码变更、撰写功能描述，这不仅耗时费力，还容易遗漏重要信息。
 
-**Higress报告生成代理**应运而生，它是一个基于AI的智能报告生成系统，能够自动分析GitHub仓库的PR数据，生成高质量的月报和Changelog。
+**github报告生成代理**应运而生，它是一个基于AI的智能报告生成系统，能够自动分析GitHub仓库的PR数据，生成高质量的月报和Changelog。
 
 ## 🎯 核心特性
 
@@ -12,6 +12,7 @@
 - **多维度评估**：基于代码复杂度、代码实际更改、用户影响范围的评分体系
 - **社区评论联动**：集成Lingma-Agent等机器人评论，提供更全面的PR分析视角
 - **重要PR识别**：自动识别关键功能更新，提供详细的技术分析
+- **支持对话形式生成月报** 
 
 ### 📊 双重报告模式
 - **月报模式**：按时间维度自动筛选优质PR，生成社区月报
@@ -127,6 +128,7 @@ export MODEL_SERVER=https://dashscope.aliyuncs.com/compatible-mode/v1
 export GITHUB_REPO_OWNER=alibaba          # 默认：alibaba
 export GITHUB_REPO_NAME=higress           # 默认：higress
 export GOOD_PR_NUM=10                     # 月报亮点PR数量
+export AGENT=true                         # 启用agent模式
 ```
 
 
@@ -143,7 +145,7 @@ python report_main.py --mode=2 --choice=1 --month=7 --year=2025
 ### 交互式使用
 
 ```
-🤖 Higress报告生成代理
+🤖 github报告生成代理
 当前仓库: alibaba/higress
 ==================================================
 
