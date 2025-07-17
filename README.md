@@ -9,12 +9,15 @@ In the daily maintenance of open source projects, regularly generating monthly r
 ## DEMO
 https://github.com/user-attachments/assets/99183dff-c30e-4beb-91cc-6c183627cbcc
 
+（The qwen-turbo model has been tested）
+
 ## 🎯 Core Features
 
 ### 🔥 Intelligent PR Analysis
 - **Multi-dimensional Evaluation**: Scoring system based on code complexity, actual code changes, and user impact
 - **Community Comment Integration**: Integrates comments from bots like Lingma-Agent, providing a more comprehensive PR analysis perspective
 - **Key PR Identification**: Automatically identifies critical feature updates and provides detailed technical analysis
+- **Support the generation of monthly reports in the form of dialogues** 
 
 ### 📊 Dual Report Modes
 - **Monthly Report Mode**: Automatically filters high-quality PRs by time to generate community monthly reports
@@ -134,6 +137,7 @@ export MODEL_SERVER=https://dashscope.aliyuncs.com/compatible-mode/v1
 export GITHUB_REPO_OWNER=alibaba          # Default: alibaba
 export GITHUB_REPO_NAME=higress           # Default: higress
 export GOOD_PR_NUM=10                     # Number of highlight PRs in monthly report
+export AGENT=true                         # agent mode 
 ```
 
 ### Start the Service
@@ -149,7 +153,7 @@ python report_main.py --mode=2 --choice=1 --month=7 --year=2025
 ### Interactive Usage
 
 ```
-🤖 Higress Report Generation Agent
+🤖 Github Report Generation Agent
 Current repository: alibaba/higress
 ==================================================
 
