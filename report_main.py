@@ -37,7 +37,7 @@ class ReportAgent:
                 'mcpServers': {
                     'github-mcp-serve': {
                         'command': './github-mcp-serve',
-                        "args": ["stdio", "--toolsets", "issues", "--toolsets", "pull_requests","--read-only", "--toolsets", "repos"],
+                        "args": ["stdio", "--toolsets", "issues", "--toolsets", "pull_requests", "--read-only", "--toolsets", "repos"],
                         "env": {
                             "GITHUB_PERSONAL_ACCESS_TOKEN": os.getenv("GITHUB_PERSONAL_ACCESS_TOKEN")
                         }
@@ -180,14 +180,12 @@ class ReportAgent:
         # 显示当前仓库配置
         default_owner = os.getenv('GITHUB_REPO_OWNER')
         default_repo = os.getenv('GITHUB_REPO_NAME')
-        
+
         if not default_owner or not default_repo:
             print("❗️ 未设置GITHUB_REPO_OWNER或GITHUB_REPO_NAME环境变量")
             raise ValueError(
                 "请设置GITHUB_REPO_OWNER和GITHUB_REPO_NAME环境变量，以便正确生成报告")
-            
 
-        
         print(f"📂 当前仓库配置: {default_owner}/{default_repo}")
         print("   (可通过环境变量 GITHUB_REPO_OWNER 和 GITHUB_REPO_NAME 修改)")
 
@@ -321,14 +319,20 @@ class ReportAgent:
         print("🎉 欢迎使用github报告生成器!")
 
         # 显示当前仓库配置
-        default_owner = os.getenv('GITHUB_REPO_OWNER', 'alibaba')
-        default_repo = os.getenv('GITHUB_REPO_NAME', 'higress')
-        print(f"📂 当前仓库配置: {default_owner}/{default_repo}")
+        owner = os.getenv('GITHUB_REPO_OWNER')
+        repo = os.getenv('GITHUB_REPO_NAME')
+        if not owner or not repo:
+            print("❗️ 未设置GITHUB_REPO_OWNER或GITHUB_REPO_NAME环境变量")
+            raise ValueError(
+                "请设置GITHUB_REPO_OWNER和GITHUB_REPO_NAME环境变量，以便正确生成报告")
+        print(f"📂 当前仓库配置: {owner}/{repo}")
         print("   (可通过环境变量 GITHUB_REPO_OWNER 和 GITHUB_REPO_NAME 修改)")
 
         try:
             if config.choice == config.REPORT_MONTHLY:
                 report = self.generate_monthly_report(
+                    owner=owner,
+                    repo=repo,
                     month=config.month,
                     year=config.year,
                     important_pr_list=config.important_pr_list,
@@ -346,6 +350,8 @@ class ReportAgent:
 
             elif config.choice == config.REPORT_CHANGELOG:
                 report = self.generate_changelog(
+                    owner=owner,
+                    repo=repo,
                     pr_num_list=config.pr_num_list,
                     important_pr_list=config.important_pr_list,
                     translate=config.translate
@@ -376,7 +382,7 @@ def main():
     # 创建报告代理
     agent = ReportAgent()
 
-    isAgent =os.getenv("AGENT", "true")
+    isAgent = os.getenv("AGENT", "true")
 
     # 启动代理
     if config.mode == config.MODE_ARGS:
@@ -385,7 +391,6 @@ def main():
         agent.interactive_mode()
     else:
         agent.terminal_interactive_mode()
-
 
 
 if __name__ == '__main__':
