@@ -286,7 +286,7 @@ class ChangelogReportGenerator(BaseReportGenerator):
                     contributor_login = pr.user.get('login', '未知')
                     
                     section += f"- **Related PR**: [#{pr.number}]({pr.html_url}) \\\n"
-                    section += f"  **Contributor**: {contributor_login} \\\n"
+                    section += f"  **Contributor**: @{contributor_login} \\\n"
                     section += f"  **Change Log**: {pr.highlight} \\\n"
                     section += f"  **Feature Value**: {pr.function_value}\n\n"
         
