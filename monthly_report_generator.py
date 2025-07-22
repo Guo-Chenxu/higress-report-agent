@@ -236,7 +236,7 @@ class MonthlyReportGenerator(BaseReportGenerator):
                 
                 report += f"### {i}. {function_name}\n\n"
                 report += f"**相关PR**: [#{pr.number}]({pr.html_url}) | "
-                report += f"**贡献者**: [{contributor_login}]({contributor_url})\n\n"
+                report += f"**贡献者**: [@{contributor_login}]({contributor_url})\n\n"
                 
                 if pr.detailed_analysis:
                     # 使用详细分析内容
@@ -261,7 +261,7 @@ class MonthlyReportGenerator(BaseReportGenerator):
                 # 处理贡献者信息
                 contributor_login = pr.user.get('login', '未知')
                 contributor_url = pr.user.get('html_url', '#')
-                report += f"- 贡献者：[{contributor_login}]({contributor_url})\n"
+                report += f"- 贡献者：[@{contributor_login}]({contributor_url})\n"
                 
                 report += f"- 技术看点：{pr.highlight}\n"
                 report += f"- 功能价值：{pr.function_value}\n\n"

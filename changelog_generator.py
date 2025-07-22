@@ -245,7 +245,7 @@ class ChangelogReportGenerator(BaseReportGenerator):
             
             section += f"### {i}. {pr.title}\n\n"
             section += f"**相关PR**: [#{pr.number}]({pr.html_url}) | "
-            section += f"**贡献者**: [{contributor_login}]({contributor_url})\n\n"
+            section += f"**贡献者**: [@{contributor_login}]({contributor_url})\n\n"
             
             if pr.detailed_analysis:
                 section += f"{pr.detailed_analysis}\n\n"
@@ -285,9 +285,9 @@ class ChangelogReportGenerator(BaseReportGenerator):
                 for pr in prs:
                     contributor_login = pr.user.get('login', '未知')
                     
-                    section += f"- **Related PR**: [#{pr.number}]({pr.html_url})\n"
-                    section += f"  **Contributor**: {contributor_login}\n"
-                    section += f"  **Change Log**: {pr.highlight}\n"
+                    section += f"- **Related PR**: [#{pr.number}]({pr.html_url}) \\\n"
+                    section += f"  **Contributor**: {contributor_login} \\\n"
+                    section += f"  **Change Log**: {pr.highlight} \\\n"
                     section += f"  **Feature Value**: {pr.function_value}\n\n"
         
         return section
