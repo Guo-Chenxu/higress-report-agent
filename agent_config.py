@@ -31,6 +31,7 @@ class AgentConfig:
         # 通用参数
         self.important_pr_list = []
         self.translate = True
+        self.sys_prompt = ""
 
     @classmethod
     def from_args(cls) -> 'AgentConfig':
@@ -59,6 +60,8 @@ class AgentConfig:
                             help='重要PR编号列表，逗号分隔')
         parser.add_argument('--no_translate', action='store_true',
                             help='设置此标志将不生成英文翻译')
+        parser.add_argument('--sys_prompt', type=str, default='',
+                            help='自定义系统提示词')
 
         args = parser.parse_args()
         config = cls()
@@ -92,6 +95,7 @@ class AgentConfig:
                 config.important_pr_list = []
 
         config.translate = not args.no_translate
+        config.sys_prompt = args.sys_prompt.strip()
 
         config.validate()
         return config
