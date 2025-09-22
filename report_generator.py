@@ -214,6 +214,7 @@ class BaseReportGenerator(ReportGeneratorInterface):
             )
             if self.sys_prompt:
                 full_prompt = full_prompt + "\n\n" + self.sys_prompt
+            print(f"full_prompt: {full_prompt}")
             
             # 4. 使用LLM分析
             messages = [{'role': 'user', 'content': full_prompt}]
