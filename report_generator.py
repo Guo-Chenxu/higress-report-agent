@@ -213,8 +213,7 @@ class BaseReportGenerator(ReportGeneratorInterface):
                 comments_summary=comments_summary
             )
             if self.sys_prompt:
-                full_prompt = full_prompt + "\n\n" + self.sys_prompt
-            print(f"full_prompt: {full_prompt}")
+                full_prompt = full_prompt + "\n\n下面是一些额外的要求，你也同样需要遵守：\n" + self.sys_prompt
             
             # 4. 使用LLM分析
             messages = [{'role': 'user', 'content': full_prompt}]
@@ -398,7 +397,7 @@ class BaseReportGenerator(ReportGeneratorInterface):
                 comments_summary=comments_summary
             )
             if self.sys_prompt:
-                full_prompt = full_prompt + "\n\n" + self.sys_prompt
+                full_prompt = full_prompt + "\n\n下面是一些额外的要求，你也同样需要遵守：\n" + self.sys_prompt
             
             # 使用LLM进行详细分析
             messages = [{'role': 'user', 'content': full_prompt}]
